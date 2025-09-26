@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { UserRoleProvider, useUserRole } from "./contexts/UserRoleContext.tsx";
+import { UserRoleProvider, useUserRole } from "./contexts/UserRoleContext";
 import { NavigationProvider } from "./contexts/NavigationContext";
-import Sidebar from "./components/Sidebar";
+import { Sidebar } from "./components/Sidebar";
 import { TenantLogin } from "./components/TenantLogin";
 import { OwnerLogin } from "./components/OwnerLogin";
 import { RoleSelector } from "./components/RoleSelector";
