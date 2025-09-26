@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { UserRoleProvider, useUserRole } from "./contexts/UserRoleContext";
+import { UserRoleProvider, useUserRole } from "./contexts/UserRoleContext.tsx";
 import { NavigationProvider } from "./contexts/NavigationContext";
 import { Sidebar } from "./components/Sidebar";
 import { TenantLogin } from "./components/TenantLogin";
