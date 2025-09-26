@@ -1,3 +1,4 @@
+import React from "react";
 import { Building2, Users, Wrench, DollarSign, Settings, X, Home, CreditCard, User, ToggleLeft, ToggleRight, LogOut, ArrowLeft, MapPin } from "lucide-react";
 import { useUserRole } from "../contexts/UserRoleContext";
 import { SupabaseStatus } from './SupabaseStatus';
