@@ -1,6 +1,6 @@
-import React from "react";
 "use client";
 
+import React from "react";
 import { useTheme } from "next-themes@0.4.6";
 import { Toaster as Sonner, ToasterProps } from "sonner@2.0.3";
 
