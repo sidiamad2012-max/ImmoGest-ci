@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import { UserRoleProvider, useUserRole } from "./contexts/UserRoleContext.tsx";
 import { NavigationProvider } from "./contexts/NavigationContext";
