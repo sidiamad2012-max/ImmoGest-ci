@@ -1,3 +1,4 @@
+import React from "react";
 "use client";
 
 import { useTheme } from "next-themes@0.4.6";
