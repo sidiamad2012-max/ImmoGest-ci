@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { UserRoleProvider, useUserRole } from "./contexts/UserRoleContext.tsx";
 import { NavigationProvider } from "./contexts/NavigationContext";
+import { SidebarProvider } from "./contexts/SidebarContext";
 import { Sidebar } from "./components/Sidebar";
 import { TenantLogin } from "./components/TenantLogin";
 import { OwnerLogin } from "./components/OwnerLogin";
