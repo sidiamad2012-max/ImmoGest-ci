@@ -1,7 +1,7 @@
 import React from "react";
 import { Building2, Users, Wrench, DollarSign, Settings, X, Home, CreditCard, User, ToggleLeft, ToggleRight, LogOut, ArrowLeft, MapPin } from "lucide-react";
 import { useUserRole } from "../contexts/UserRoleContext";
-import { SupabaseStatus } from './SupabaseStatus';
+import { SupabaseStatus } from '../components/SupabaseStatus';
 
 type LandlordSection = 'overview' | 'units' | 'tenants' | 'maintenance' | 'finances' | 'settings';
 type TenantSection = 'dashboard' | 'maintenance' | 'payments' | 'profile';
