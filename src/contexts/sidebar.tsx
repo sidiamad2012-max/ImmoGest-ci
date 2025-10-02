@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { createContext, useContext, useState, useCallback, useMemo } from "react";
 import { Building2, Users, Wrench, DollarSign, Settings, X, Home, CreditCard, User, ToggleLeft, ToggleRight, LogOut, ArrowLeft, MapPin } from "lucide-react";
 import { useUserRole } from "../contexts/UserRoleContext";
 import { SupabaseStatus } from '../components/SupabaseStatus';
@@ -7,11 +9,30 @@ type LandlordSection = 'overview' | 'units' | 'tenants' | 'maintenance' | 'finan
 type TenantSection = 'dashboard' | 'maintenance' | 'payments' | 'profile';
 type ActiveSection = LandlordSection | TenantSection;
 
+interface SidebarContextProps {
+  isOpen: boolean;
+  setIsOpen: (open: boolean) => void;
+  toggleSidebar: () => void;
+}
+const SidebarContext = createContext<SidebarContextProps | undefined>(undefined);
+
+const SidebarProvider = ({ children }: { children: React.ReactNode }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleSidebar = useCallback(() => setIsOpen((o) => !o), []);
+  const ctx = useMemo(() => ({ isOpen, setIsOpen, toggleSidebar }), [isOpen]);
+
+  return <SidebarContext.Provider value={ctx}>{children}</SidebarContext.Provider>;
+};
+
+function useSidebar() {
+  const context = useContext(SidebarContext);
+  if (!context) throw new Error("useSidebar must be used within a SidebarProvider.");
+  return context;
+}
+
 interface SidebarProps {
   activeSection: ActiveSection;
   setActiveSection: (section: ActiveSection) => void;
-  isOpen: boolean;
-  setIsOpen: (open: boolean) => void;
 }
 
 const landlordNavigationItems = [
@@ -30,15 +51,14 @@ const tenantNavigationItems = [
   { id: 'profile' as const, label: 'Mon Profil', icon: User },
 ];
 
-export function Sidebar({ activeSection, setActiveSection, isOpen, setIsOpen }: SidebarProps) {
+function Sidebar({ activeSection, setActiveSection }: SidebarProps) {
+  const { isOpen, setIsOpen } = useSidebar();
   const { role, setRole, userData, logout, canSwitchRole } = useUserRole();
   const currentUser = userData[role];
   const navigationItems = role === 'landlord' ? landlordNavigationItems : tenantNavigationItems;
 
   const handleRoleToggle = () => {
-    const newRole = role === 'landlord' ? 'tenant' : 'landlord';
-    setRole(newRole);
-    // The activeSection will be updated by the useEffect in App.tsx
+    setRole(role === 'landlord' ? 'tenant' : 'landlord');
   };
 
   const handleLogout = () => {
@@ -48,13 +68,10 @@ export function Sidebar({ activeSection, setActiveSection, isOpen, setIsOpen }: 
 
   const handleBackToRoleSelector = () => {
     localStorage.removeItem('hasSelectedRole');
-    logout(); // This will trigger the role selector to show
+    logout();
   };
 
-  // Generate initials from name
-  const getInitials = (name: string) => {
-    return name.split(' ').map(n => n[0]).join('').toUpperCase();
-  };
+  const getInitials = (name: string) => name.split(' ').map(n => n[0]).join('').toUpperCase();
 
   return (
     <>
@@ -65,7 +82,6 @@ export function Sidebar({ activeSection, setActiveSection, isOpen, setIsOpen }: 
           onClick={() => setIsOpen(false)}
         />
       )}
-      
       {/* Sidebar */}
       <div className={`
         fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-border transform transition-transform duration-300 ease-in-out
@@ -81,8 +97,7 @@ export function Sidebar({ activeSection, setActiveSection, isOpen, setIsOpen }: 
             <X className="w-5 h-5" />
           </button>
         </div>
-
-        {/* Role Toggle - only for development/testing and if canSwitchRole is true */}
+        {/* Role Toggle */}
         {canSwitchRole && (
           <div className="p-4 border-b border-border bg-muted/30">
             <div className="flex items-center justify-between">
@@ -106,12 +121,10 @@ export function Sidebar({ activeSection, setActiveSection, isOpen, setIsOpen }: 
             </div>
           </div>
         )}
-        
         <nav className="flex-1 p-4 space-y-2">
           {navigationItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeSection === item.id;
-            
             return (
               <button
                 key={item.id}
@@ -133,13 +146,10 @@ export function Sidebar({ activeSection, setActiveSection, isOpen, setIsOpen }: 
             );
           })}
         </nav>
-        
         <div className="p-4 border-t border-border space-y-3">
-          {/* Supabase Status */}
           <div className="flex justify-center">
             <SupabaseStatus />
           </div>
-
           <div className="flex items-center space-x-3 p-3 bg-muted rounded-lg">
             <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
               <span className="text-primary-foreground text-sm">{getInitials(currentUser.name)}</span>
@@ -151,8 +161,7 @@ export function Sidebar({ activeSection, setActiveSection, isOpen, setIsOpen }: 
               </p>
             </div>
           </div>
-          
-          {/* Back to role selector - only for owners */}
+          {/* Back to role selector */}
           {canSwitchRole && (
             <button
               onClick={handleBackToRoleSelector}
@@ -162,8 +171,7 @@ export function Sidebar({ activeSection, setActiveSection, isOpen, setIsOpen }: 
               <span className="text-sm">Changer de mode</span>
             </button>
           )}
-          
-          {/* Logout button - always show for tenants, also show for owners */}
+          {/* Logout button */}
           <button
             onClick={handleLogout}
             className="w-full flex items-center space-x-3 px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
@@ -180,4 +188,5 @@ export function Sidebar({ activeSection, setActiveSection, isOpen, setIsOpen }: 
 export {
   SidebarProvider,
   useSidebar,
-  };
+  Sidebar,
+};
