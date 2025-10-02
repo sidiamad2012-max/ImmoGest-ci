@@ -2,6 +2,7 @@ import React from "react";
 import { Building2, Users, Wrench, DollarSign, Settings, X, Home, CreditCard, User, ToggleLeft, ToggleRight, LogOut, ArrowLeft, MapPin } from "lucide-react";
 import { useUserRole } from "../contexts/UserRoleContext";
 import { SupabaseStatus } from '../components/SupabaseStatus';
+import { useSidebar } from "../contexts/sidebar"; 
 
 type LandlordSection = 'overview' | 'units' | 'tenants' | 'maintenance' | 'finances' | 'settings';
 type TenantSection = 'dashboard' | 'maintenance' | 'payments' | 'profile';
@@ -10,8 +11,6 @@ type ActiveSection = LandlordSection | TenantSection;
 interface SidebarProps {
   activeSection: ActiveSection;
   setActiveSection: (section: ActiveSection) => void;
-  isOpen: boolean;
-  setIsOpen: (open: boolean) => void;
 }
 
 const landlordNavigationItems = [
@@ -30,15 +29,15 @@ const tenantNavigationItems = [
   { id: 'profile' as const, label: 'Mon Profil', icon: User },
 ];
 
-export function Sidebar({ activeSection, setActiveSection, isOpen, setIsOpen }: SidebarProps) {
+export function Sidebar({ activeSection, setActiveSection }: SidebarProps) {
+  // Use sidebar context instead of props for isOpen/setIsOpen
+  const { isOpen, setIsOpen } = useSidebar();
   const { role, setRole, userData, logout, canSwitchRole } = useUserRole();
   const currentUser = userData[role];
   const navigationItems = role === 'landlord' ? landlordNavigationItems : tenantNavigationItems;
 
   const handleRoleToggle = () => {
-    const newRole = role === 'landlord' ? 'tenant' : 'landlord';
-    setRole(newRole);
-    // The activeSection will be updated by the useEffect in App.tsx
+    setRole(role === 'landlord' ? 'tenant' : 'landlord');
   };
 
   const handleLogout = () => {
@@ -48,7 +47,7 @@ export function Sidebar({ activeSection, setActiveSection, isOpen, setIsOpen }: 
 
   const handleBackToRoleSelector = () => {
     localStorage.removeItem('hasSelectedRole');
-    logout(); // This will trigger the role selector to show
+    logout();
   };
 
   // Generate initials from name
