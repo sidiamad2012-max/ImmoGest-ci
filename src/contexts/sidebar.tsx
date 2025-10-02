@@ -180,5 +180,4 @@ export function Sidebar({ activeSection, setActiveSection, isOpen, setIsOpen }: 
 export {
   SidebarProvider,
   useSidebar,
-  Sidebar,
-};
+  };
