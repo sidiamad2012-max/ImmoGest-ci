@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { UserRoleProvider, useUserRole } from "./contexts/UserRoleContext.tsx";
+import { UserRoleProvider, useUserRole } from "./contexts/UserRoleContext";
 import { NavigationProvider } from "./contexts/NavigationContext";
 import { SidebarProvider } from "./contexts/sidebar";
 import { Sidebar } from "./components/Sidebar";
