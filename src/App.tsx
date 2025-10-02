@@ -140,8 +140,10 @@ function AppContent() {
 export default function App() {
   return (
     <UserRoleProvider>
-      <AppContent />
-      <Toaster />
+      <SidebarProvider>
+        <AppContent />
+        <Toaster />
+      </SidebarProvider>
     </UserRoleProvider>
   );
 }
