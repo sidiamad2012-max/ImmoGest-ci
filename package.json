@@ -34,6 +34,8 @@
     "@radix-ui/react-scroll-area": "^1.0.5",
     "@radix-ui/react-select": "^2.0.0",
     "@radix-ui/react-separator": "^1.0.3",
+    "@radix-ui/react-slot": "^1.0.2",
+
     "@radix-ui/react-slider": "^1.1.2",
     "@radix-ui/react-slot": "^1.2.3",
     "@radix-ui/react-switch": "^1.0.3",
@@ -93,8 +95,7 @@
     "url": "https://github.com/votre-username/immogest-ci.git"
   },
   "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=8.0.0"
+    "node": "22.x"
   },
   "browserslist": {
     "production": [
