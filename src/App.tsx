@@ -1,8 +1,7 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { UserRoleProvider, useUserRole } from "./contexts/UserRoleContext.tsx";
+import React, { useState, useEffect } from "react";
+import { UserRoleProvider, useUserRole } from "./contexts/UserRoleContext";
 import { NavigationProvider } from "./contexts/NavigationContext";
-import { SidebarProvider } from "./contexts/SidebarContext";
+import { SidebarProvider } from "./components/Sidebar";
 import { Sidebar } from "./components/Sidebar";
 import { TenantLogin } from "./components/TenantLogin";
 import { OwnerLogin } from "./components/OwnerLogin";
@@ -140,8 +139,10 @@ function AppContent() {
 export default function App() {
   return (
     <UserRoleProvider>
-      <AppContent />
-      <Toaster />
+      <SidebarProvider>
+        <AppContent />
+        <Toaster />
+      </SidebarProvider>
     </UserRoleProvider>
   );
 }
