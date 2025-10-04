@@ -93,7 +93,7 @@
     "url": "https://github.com/votre-username/immogest-ci.git"
   },
   "engines": {
-    "node": "18.x"
+    "node": "22.x"
   },
   "browserslist": {
     "production": [
