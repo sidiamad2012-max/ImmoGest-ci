@@ -9,4 +9,8 @@
     "noEmit": true
   },
   "include": ["vite.config.ts"]
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 843fe9c5908a02331cc239c66adc38240a19eb6c
