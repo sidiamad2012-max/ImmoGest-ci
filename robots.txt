@@ -1,0 +1,32 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+Disallow: /*.json$
+Disallow: /*?*
+
+# Allow specific crawlers for analytics
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# ImmoGest CI - Système de gestion immobilière pour la Côte d'Ivoire
+Sitemap: https://immogest-ci.vercel.app/sitemap.xml
+
+# Crawl delay for respectful crawling
+Crawl-delay: 1
+
+# Host directive for canonical domain
+Host: https://immogest-ci.vercel.app
+
+# Allow search engines to index public content
+Allow: /proprietaire
+Allow: /locataire
+Allow: /fonctionnalites
+Allow: /tarifs
+Allow: /contact
+Allow: /aide
+Allow: /blog
