@@ -29,8 +29,8 @@
     "allowSyntheticDefaultImports": true
   },
   "include": [
-    "**/*.ts",
-    "**/*.tsx",
+    "src/*.ts",
+    "src/*.tsx",
     "**/*.js",
     "**/*.jsx"
   ],
@@ -39,6 +39,10 @@
     "dist",
     "build",
     "vite.config.ts"
+    "vite.config.js",
+    "tsconfig.node.json",
+    "**/*.config.ts",
+    "**/*.config.js"
   ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
