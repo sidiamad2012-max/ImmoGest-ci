@@ -44,5 +44,4 @@
     "**/*.config.ts",
     "**/*.config.js"
   ],
-  "references": [{ "path": "./tsconfig.node.json" }]
 }
